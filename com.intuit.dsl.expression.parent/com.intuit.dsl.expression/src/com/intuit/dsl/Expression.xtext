@@ -1,0 +1,231 @@
+grammar com.intuit.dsl.Expression with org.eclipse.xtext.common.Terminals
+
+generate expression "http://www.intuit.com/dsl/Expression"
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+Expression returns Expression:
+  BooleanExpression;
+
+BooleanExpression returns Expression:
+  Comparison
+  (({BooleanExpression.left=current} op=("||"|"&&"|"and"|"or")) right=Comparison)*;
+
+Comparison returns Expression:
+  Membership
+  (({Comparison.left=current} op=("<" | ">" | "<=" | ">=")) right=Membership)*;
+
+Membership returns Expression:
+  Equals
+  (({Membership.left=current} op=("in" | "not_in")) "[" right+=Expression(',' right+=Expression)* "]")*;
+
+Equals returns Expression:
+  Addition
+  (({Equals.left=current} op=("==" | "!=" | "=~" | "!~" | "is")) right=Addition)*;
+
+Addition returns Expression:
+  Multiplication
+  (=>({Plus.left=current} '+' | {Minus.left=current} '-')
+  right=Multiplication)*;
+
+Multiplication returns Expression:
+  Prefixed 
+  (({MultiOrDivOrMod.left=current} op=("*"|"/"|"%")) right=Prefixed)*;
+
+Prefixed returns Expression:
+  {BooleanNegation} "!" expression=Atomic | /* right associativity */
+  {ArithmeticSigned} '-' expression=Atomic | /* right associativity */
+  Atomic;
+  //TODO: unary addition operator can be supported in ArithmeticSigned
+
+Atomic returns Expression:
+  LiteralExpression |	
+  TernaryExpression |
+  ArrayExpression |
+  ParenthesizedExpression |
+  {FunctionReference} ref=Function |
+  {VariableReference} ref=Variable |
+  {PropertyExpresssion} ref=Property
+;
+
+LiteralExpression:
+  {NumberLiteral} value=NUMBER |
+  {StringLiteral} value=STRING |
+  {NullLiteral} value= 'null' |
+  {BooleanLiteral} value=('true'|'false')
+;
+
+TernaryExpression:
+  'if' expression=BooleanExpression
+  'then' truevalue=Atomic
+  (=>'else' falsevalue=Atomic)?
+  /**
+   * Breaking change: the dangling else is now part of inner if condition.
+   * Breaking change: Only atomic expressions are part of then and else statements
+   */
+;
+
+ArrayExpression returns Expression:
+	{ArrayExpression} '[' expression+=Expression(',' expression+=Expression)* ']'
+;
+
+ParenthesizedExpression returns Expression:
+	'(' Expression ')'
+;
+
+Function:
+  CollectionFunction | Join | Length | DateFormat | Delete | Contains | DayDifference | CurrentDate | PickFirst | Extract | TranslateUnicode | AddToDate | UUIDFunc | LowerFunc | UpperFunc 
+;
+
+CollectionFunction:
+  function=CollectionFunctionCall (=>'[' refexp=Expression ']')?('.'resultKey+=Key)*
+;
+
+CollectionFunctionCall:
+  RemoveFunc | FindFirstFunc | FilterFunc | MapFunc | Split | Json | ConcatFunc | SortFunc | DedupFunc | LastFunc | ParentFunc
+;
+
+ParentFunc:
+	'parent(' exp=Expression ')'
+;
+
+LastFunc:
+	'last(' exp=Expression ')'
+;
+
+Delete:
+  'delete(' variable = Variable ')'
+;
+
+
+Split:
+  'split('exp=Expression','regex=STRING')'
+;
+
+Contains:
+  'contains('input=Expression','search=Expression')'
+;
+
+Extract:
+  'extract('input=Expression','range=Range')'
+;
+
+DateFormat:
+  'dateFormat' '(' from=('\"MM/dd/yyyy\"' | '\"yyyyMMdd\"' | '\"yyyy-MM-dd\"' | '\"ms\"' | STRING) ',' to=('\"MM/dd/yyyy\"' | '\"yyyyMMdd\"' | '\"yyyy-MM-dd\"' | '\"ms\"' | STRING) ',' exp=Expression ')'
+;
+
+AddToDate:
+	'addToDate' '(' dateExp=Expression ',' format=('\"MM/dd/yyyy\"' | '\"yyyyMMdd\"' | '\"yyyy-MM-dd\"' | '\"ms\"' | STRING) ',' exp=Expression ',' type=('Days') ')'
+;
+
+FilterFunc:
+  'filter('exp=Expression','condtion=BooleanExpression')'
+;
+
+FindFirstFunc:
+  'findFirst' '('exp=Expression',' condition=BooleanExpression')'
+;
+
+RemoveFunc:
+  'remove' '(' exp=Expression ',' condition=BooleanExpression')'
+;
+
+SortFunc:
+  'sort('exp=Expression','key=SchemaVariable (','type=ORDER_TYPE)?')'
+;
+
+DedupFunc:
+  'dedup('exp=Expression (','key=SchemaVariable)?')'	
+;
+
+ORDER_TYPE:
+	'ascending' | 'descending'
+;
+
+MapFunc:
+  'map('exp=Expression ("{"range=Range"}")? ('as' aliasKey=AllowedKeyword)? '->'(returnexp=Expression | '{'
+   ((statement+=MapStatement)+)
+  	'}')
+  ')'
+;
+
+Range:
+  (low=Expression)? diff=".." (high=Expression)?
+;
+
+MapStatement:
+  resultKey+=Key('.'resultKey+=Key)* '=' exp=Expression
+;
+
+ConcatFunc:
+  'concat('exp+=Expression (','exp+=Expression)+ ')'
+;
+
+Length:
+  'length('exp=Expression')'
+;
+
+LowerFunc:
+	'lowerCase('exp=Expression')'
+;
+
+UpperFunc:
+	'upperCase('exp=Expression')'
+;
+
+UUIDFunc:{UUIDFunc}
+	'uuid()'
+;
+
+Json:
+  'json('exp=SchemaVariable')'
+;
+
+Join:
+	/**
+	 * Breaking change to make the `key` parameter non-optional 
+	 */
+  'join('exp=Expression ',' key=Expression ',' delimiter=STRING(','last=STRING)? ')'
+
+;
+
+DayDifference:
+  'dayDifference('from=Expression','to=Expression',' formatter=('\"MM/dd/yyyy\"' | '\"yyyyMMdd\"' | '\"yyyy-MM-dd\"') ')'
+;
+
+TranslateUnicode:
+	'translateUnicode('exp=Expression')'
+;
+CurrentDate:
+	{CurrentDate} 'currentDate('format=('\"MM/dd/yyyy\"' | '\"yyyyMMdd\"' | '\"yyyy-MM-dd\"' | '\"ms\"' | STRING)?')'
+;
+
+PickFirst:
+  'pickFirst('exp+=Expression (','exp+=Expression)+ '->' condition=Comparison ')'
+;
+
+
+Variable:
+  schemaVariable=SchemaVariable
+;
+
+
+Key:
+  id=AllowedKeyword(=>'['exp=Expression']')?
+;
+
+SchemaVariable:
+  (global='::')?key+=Key('.'key+=Key)*
+;
+
+Property:
+  '@Config('key=STRING')'
+;
+
+AllowedKeyword: ID | 'length' | 'filter' | 'delete' | 'path' | 'it' | 'field' | 'default' | 'template' | 'uuid' | 'parent' | 'json' 
+	| 'join' | 'translateUnicode' | 'upperCase' | 'lowerCase' | 'concat'  
+;
+
+NUMBER returns ecore::EBigDecimal:
+  INT | (INT '.' INT)
+;  
