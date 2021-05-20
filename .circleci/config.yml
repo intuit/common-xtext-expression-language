@@ -17,7 +17,7 @@ jobs:
           name: Maven Build
           command: mvn clean install
       - store_test_results:
-          path: target/surefire-reports
+          path: com.intuit.dsl.expression.parent/com.intuit.dsl.expression.ui.tests/target/surefire-reports
       # Then run your tests!
       # - run:
       #    name: Test
