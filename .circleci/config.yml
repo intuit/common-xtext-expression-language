@@ -11,10 +11,7 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: mvn -B -DskipTests clean package
-      - run:
-          name: Test
-          command: mvn test
+          command: mvn -B clean package
       - store_test_results:
           path: com.intuit.dsl.expression.parent/com.intuit.dsl.expression.tests/target/surefire-reports
 
