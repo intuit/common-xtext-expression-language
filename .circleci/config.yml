@@ -17,11 +17,11 @@ jobs:
       # Use mvn clean install as the standard maven build phase
       - run:
           name: Build
-          command: mvn -U -B clean install
+          command: mvn -U -B -DskipTests clean install
       # Then run your tests!
-      #- run:
-      #    name: Test
-      #    command: mvn test
+      - run:
+          name: Test
+          command: mvn test
 
 workflows:
   # Below is the definition of your workflow.
