@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Automatic-Module-Name: com.intuit.dsl.expression
 Bundle-ManifestVersion: 2
 Bundle-Name: com.intuit.dsl.expression
-Bundle-Vendor: Intuit
+Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: com.intuit.dsl.expression; singleton:=true
 Bundle-ActivationPolicy: lazy

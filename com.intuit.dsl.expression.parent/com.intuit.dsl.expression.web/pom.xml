@@ -36,7 +36,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.4.22.v20191022</version>
+				<version>9.4.34.v20201102</version>
 				<configuration>
 					<webAppSourceDirectory>WebRoot</webAppSourceDirectory>
 				</configuration>
@@ -106,7 +106,7 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>3.4.1</version>
+			<version>3.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -116,7 +116,7 @@
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-annotations</artifactId>
-			<version>9.4.22.v20191022</version>
+			<version>9.4.34.v20201102</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
