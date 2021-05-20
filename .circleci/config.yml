@@ -17,11 +17,13 @@ jobs:
       # Use mvn clean and package as the standard maven build phase
       - run:
           name: Build
-          command: mvn -B -DskipTests clean package
+          command: mvn clean install
+      - store_test_results:
+          path: target/surefire-reports
       # Then run your tests!
-      - run:
-          name: Test
-          command: mvn test
+      # - run:
+      #    name: Test
+      #    command: mvn test
 
 workflows:
   # Below is the definition of your workflow.
