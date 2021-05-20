@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: mvn -B -DskipTests clean package
+          command: mvn -B clean package
       - run:
           name: Test
           command: mvn test
