@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: mvn -B clean package
+          command: mvn -B clean install
       - store_test_results:
           path: com.intuit.dsl.expression.parent/com.intuit.dsl.expression.tests/target/surefire-reports
 
