@@ -16,7 +16,7 @@ jobs:
           name: Test
           command: mvn test
       - store_test_results:
-          path: com.intuit.dsl.expression.parent/com.intuit.dsl.expression.ui.tests/target/surefire-reports
+          path: com.intuit.dsl.expression.parent/com.intuit.dsl.expression.tests/target/surefire-reports
 
 workflows:
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
