@@ -1,4 +1,5 @@
 # Common-Expression-Language
+![common-xtext-expression-language logo](./common-xtext-expression-language-logo.png)
 The project provides an expression language built using [Xtext](https://www.eclipse.org/Xtext/index.html) and a runtime engine to evaluate the expressions. 
 The expression grammar can be imported in other Xtext DSLs to create composable and reusable languages using Xtext. 
 
