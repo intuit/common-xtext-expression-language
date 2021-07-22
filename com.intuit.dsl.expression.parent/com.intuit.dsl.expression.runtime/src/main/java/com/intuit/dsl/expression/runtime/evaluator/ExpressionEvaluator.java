@@ -1,17 +1,11 @@
 package com.intuit.dsl.expression.runtime.evaluator;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Consumer;
-import org.eclipse.emf.ecore.EObject;
 import com.intuit.dsl.expression.AddToDate;
 import com.intuit.dsl.expression.ArithmeticSigned;
 import com.intuit.dsl.expression.BooleanExpression;
 import com.intuit.dsl.expression.BooleanLiteral;
 import com.intuit.dsl.expression.BooleanNegation;
 import com.intuit.dsl.expression.CollectionFunction;
-import com.intuit.dsl.expression.CollectionFunctionCall;
 import com.intuit.dsl.expression.Comparison;
 import com.intuit.dsl.expression.ConcatFunc;
 import com.intuit.dsl.expression.Contains;
@@ -25,16 +19,13 @@ import com.intuit.dsl.expression.Expression;
 import com.intuit.dsl.expression.Extract;
 import com.intuit.dsl.expression.FilterFunc;
 import com.intuit.dsl.expression.FindFirstFunc;
-import com.intuit.dsl.expression.Function;
 import com.intuit.dsl.expression.FunctionReference;
 import com.intuit.dsl.expression.Join;
 import com.intuit.dsl.expression.Json;
-import com.intuit.dsl.expression.Key;
 import com.intuit.dsl.expression.LastFunc;
 import com.intuit.dsl.expression.Length;
 import com.intuit.dsl.expression.LowerFunc;
 import com.intuit.dsl.expression.MapFunc;
-import com.intuit.dsl.expression.MapStatement;
 import com.intuit.dsl.expression.Membership;
 import com.intuit.dsl.expression.Minus;
 import com.intuit.dsl.expression.MultiOrDivOrMod;
@@ -104,7 +95,12 @@ import com.intuit.dsl.expression.runtime.model.DataModel;
 import com.intuit.dsl.expression.runtime.model.DataValue;
 import com.intuit.dsl.expression.runtime.model.RuntimeOptions;
 import com.intuit.dsl.expression.util.ExpressionSwitch;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Consumer;
 import lombok.Getter;
+import org.eclipse.emf.ecore.EObject;
 
 @Getter
 public class ExpressionEvaluator extends ExpressionSwitch<DataValue> {
@@ -114,11 +110,7 @@ public class ExpressionEvaluator extends ExpressionSwitch<DataValue> {
   }
 
   public DataValue caseVariable(Variable object) {
-    return null;
-  }
-
-  public DataValue caseKey(Key object) {
-    return null;
+    return caseSchemaVariable(object.getSchemaVariable());
   }
 
   public DataValue caseSchemaVariable(SchemaVariable object) {
@@ -133,16 +125,8 @@ public class ExpressionEvaluator extends ExpressionSwitch<DataValue> {
     return new TernaryExpressionEvaluator(this).evaluate(object);
   }
 
-  public DataValue caseFunction(Function object) {
-    return null;
-  }
-
   public DataValue caseCollectionFunction(CollectionFunction object) {
     return new CollectionFunctionEvaluator(this).evaluate(object);
-  }
-
-  public DataValue caseCollectionFunctionCall(CollectionFunctionCall object) {
-    return null;
   }
 
   public DataValue caseParentFunc(ParentFunc object) {
@@ -202,11 +186,7 @@ public class ExpressionEvaluator extends ExpressionSwitch<DataValue> {
   }
 
   public DataValue caseRange(Range object) {
-    return null;
-  }
-
-  public DataValue caseMapStatement(MapStatement object) {
-    return null;
+    return null; //ToDo: Copy range evaluator
   }
 
   public DataValue caseConcatFunc(ConcatFunc object) {
@@ -359,10 +339,12 @@ public class ExpressionEvaluator extends ExpressionSwitch<DataValue> {
 
     private Optional<ExpressionEvaluator> parentVisitor = Optional.empty();
     private RuntimeOptions runtimeOptions = new RuntimeOptions();
-    private ConfigManager configManager = new ConfigManager() {};
+    private ConfigManager configManager = new ConfigManager() {
+    };
     private Map<String, DataModel> inputs = new HashMap<>();
 
-    private Builder() {}
+    private Builder() {
+    }
 
     public Builder withParentVisitor(final ExpressionEvaluator parentVisitor) {
       this.parentVisitor = Optional.of(parentVisitor);
