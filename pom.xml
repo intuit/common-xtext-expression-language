@@ -49,7 +49,7 @@
 
 	<profiles>
 		<profile>
-			<id>oss-release</id>
+			<id>release</id>
 			<build>
 				<plugins>
 					<plugin>
