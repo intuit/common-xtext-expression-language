@@ -40,6 +40,11 @@
 			<artifactId>com.intuit.dsl.expression</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext</artifactId>
+			<version>${xtextVersion}</version>
+		</dependency>
 	<!-- 	<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.xbase.web</artifactId>
