@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<scm>
-		<connection>scm:git:https://github.com/intuit/common-xtext-expression-language</connection>
-		<url>https://github.com/intuit/common-xtext-expression-language</url>
+		<connection>${scm.connection}</connection>
+		<url>${scm.url}</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -49,6 +49,10 @@
 
 	<profiles>
 		<profile>
+			<properties>
+				<scm.url>https://github.com/intuit/common-xtext-expression-language</scm.url>
+				<scm.connection>scm:git:https://github.com/intuit/common-xtext-expression-language</scm.connection>
+			</properties>
 			<id>release</id>
 			<build>
 				<plugins>
@@ -85,20 +89,24 @@
 		</profile>
 		<profile>
 			<id>internal-release</id>
+			<properties>
+				<scm.url>https://github.intuit.com/DSL/common-xtext-expression-language</scm.url>
+				<scm.connection>scm:git:https://github.intuit.com/DSL/common-xtext-expression-language</scm.connection>
+			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<distributionManagement>
-			<repository>
-				<id>scm.int.rel.repo</id>
-				<name>SCM INT release repository</name>
-				<url>http://nexus.intuit.net/nexus/content/repositories/ENG.CTG.Intuit-Releases</url>
-			</repository>
-			<snapshotRepository>
-				<id>scm.dev.snap.repo</id>
-				<name>SCM DEV snapshot release repository</name>
-				<url>http://nexus.intuit.net/nexus/content/repositories/ENG.CTG.Intuit-Snapshots</url>
-			</snapshotRepository>
+				<repository>
+					<id>scm.int.rel.repo</id>
+					<name>SCM INT release repository</name>
+					<url>http://nexus.intuit.net/nexus/content/repositories/ENG.CTG.Intuit-Releases</url>
+				</repository>
+				<snapshotRepository>
+					<id>scm.dev.snap.repo</id>
+					<name>SCM DEV snapshot release repository</name>
+					<url>http://nexus.intuit.net/nexus/content/repositories/ENG.CTG.Intuit-Snapshots</url>
+				</snapshotRepository>
 			</distributionManagement>
 		</profile>
 	</profiles>
