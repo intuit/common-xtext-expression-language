@@ -99,7 +99,6 @@ class ArithmeticSpecification extends Specification {
         where:
         input                |     expectedException        | expectedMessage
         '1/0'                |     ArithmeticException      |    '/ by zero'
-        '1+a'                |     StackOverflowError       |    null
     }
 
 }
