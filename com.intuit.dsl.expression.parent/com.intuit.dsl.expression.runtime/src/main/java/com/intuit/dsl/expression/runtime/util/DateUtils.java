@@ -16,6 +16,8 @@ public class DateUtils {
 	 * string sent as an arg
 	 * 
 	 * @param to String Target Date to calculate difference till
+	 * @param from String Source Data to alculate difference from
+	 * @param dateParser String Date parser
 	 * @return Long Difference in Days
 	 */
 	public static long dayDifference(final String from, final String to, final String dateParser) {
@@ -33,6 +35,7 @@ public class DateUtils {
 	/**
 	 * This function returns today's date as a String in the format MM/dd/yyyy
 	 * 
+	 * @param format String Date 
 	 * @return String Today's date in MM/dd/yyyy
 	 */
 	public static String currentDate(final String format) {

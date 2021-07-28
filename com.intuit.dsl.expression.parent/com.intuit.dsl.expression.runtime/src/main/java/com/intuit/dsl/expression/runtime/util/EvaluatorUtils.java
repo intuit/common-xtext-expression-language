@@ -67,6 +67,7 @@ public class EvaluatorUtils {
   /**
    * This function unescapes Strings for Java
    *
+   * @param unicode String UNICODE
    * @return String
    */
   public static String translateUnicode(final String unicode) {
@@ -74,7 +75,7 @@ public class EvaluatorUtils {
   }
 
   /**
-   * This function compares String values -> value1, value2, It tries to compare the numbers first a
+   * This function compares String value1, value2, It tries to compare the numbers first a
    *
    * @param value1 The first String value
    * @param value2 The second String value

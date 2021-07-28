@@ -45,16 +45,10 @@
 			<artifactId>org.eclipse.xtext</artifactId>
 			<version>${xtextVersion}</version>
 		</dependency>
-	<!-- 	<dependency>
-			<groupId>org.eclipse.xtext</groupId>
-			<artifactId>org.eclipse.xtext.xbase.web</artifactId>
-			<version>${xtextVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtext</groupId>
-			<artifactId>org.eclipse.xtext.web.servlet</artifactId>
-			<version>${xtextVersion}</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.eclipse.xtext</groupId> <artifactId>org.eclipse.xtext.xbase.web</artifactId> 
+			<version>${xtextVersion}</version> </dependency> <dependency> <groupId>org.eclipse.xtext</groupId> 
+			<artifactId>org.eclipse.xtext.web.servlet</artifactId> <version>${xtextVersion}</version> 
+			</dependency> -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -127,12 +121,20 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<configuration>
+					<skip>false</skip>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.gmaven</groupId>
 				<artifactId>gmaven-plugin</artifactId>
 				<version>${gmaven-plugin.version}</version>
 				<configuration>
 					<providerSelection>2.0</providerSelection>
-					<source/>
+					<source />
 				</configuration>
 				<executions>
 					<execution>
