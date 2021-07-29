@@ -16,6 +16,13 @@
 	<name>${project.artifactId}</name>
 	<url>https://github.com/intuit/common-xtext-expression-language</url>
 	<packaging>pom</packaging>
+	<licenses>
+		<license>
+			<name>Apache 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
 	<developers>
 		<developer>
 			<name>Ashpak Shaikh</name>
@@ -70,15 +77,15 @@
 				</plugins>
 			</build>
 		</profile>
-		</profiles>
-		<distributionManagement>
-				<snapshotRepository>
-					<id>ossrh</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-				</snapshotRepository>
-				<repository>
-					<id>ossrh</id>
-					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-				</repository>
-		</distributionManagement>
+	</profiles>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+	</distributionManagement>
 </project>
