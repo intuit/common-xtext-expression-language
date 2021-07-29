@@ -4,12 +4,12 @@
 	<scm>
 		<connection>scm:git:https://github.com/intuit/common-xtext-expression-language</connection>
 		<url>https://github.com/intuit/common-xtext-expression-language</url>
-		<tag>common-xtext-expression-language-1.0.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<groupId>com.intuit.dsl</groupId>
 	<artifactId>common-xtext-expression-language</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<description>Simple Expression DSL</description>
 	<name>${project.artifactId}</name>
 	<url>https://github.com/intuit/common-xtext-expression-language</url>
