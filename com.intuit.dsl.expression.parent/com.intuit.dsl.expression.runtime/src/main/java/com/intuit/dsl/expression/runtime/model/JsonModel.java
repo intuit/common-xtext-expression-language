@@ -325,7 +325,7 @@ public class JsonModel implements DataModel {
           // creating a copy and adding instead of removing and adding
           // because jsonnode doesnt support remove
           final ArrayNode copy = MAPPER.createArrayNode();
-          ((ArrayNode) childNode).iterator().forEachRemaining(n -> copy.add((n == tempNode) ? node : n));
+          ((ArrayNode) childNode).iterator().forEachRemaining(n -> copy.add((n == tempNode) ? node : n)); // TODO
           parent.replace(parentKey,
               new JsonModel(new DataValue(copy, DataValue.Type.ARRAY, numberPragma), numberPragma));
         }

@@ -81,7 +81,7 @@ public class EvaluatorUtils {
    * @return int The return value - positive or negative depending on the compareTo method
    */
   public static int compareTo(final String value1, final String value2) {
-    if (value1 == value2) {
+    if (StringUtils.equals(value1, value2)) {
       return 0;
     }
     if (value1 == null && value2 != null) {
