@@ -6,7 +6,7 @@ jobs:
   build-and-test:  
     # A list of available CircleCI Docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/openjdk
     docker:
-      - image: cimg/openjdk:8.0
+      - image: circleci/openjdk:8.0.282
     steps:
       - checkout
       - run:
