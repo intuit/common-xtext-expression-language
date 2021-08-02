@@ -9,7 +9,7 @@
 
 	<groupId>com.intuit.dsl</groupId>
 	<artifactId>common-xtext-expression-language</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<description>Simple Expression DSL</description>
 	<name>${project.artifactId}</name>
 	<url>https://github.com/intuit/common-xtext-expression-language</url>
