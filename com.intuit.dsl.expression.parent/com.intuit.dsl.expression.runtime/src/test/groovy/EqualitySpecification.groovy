@@ -90,6 +90,28 @@ class EqualitySpecification extends Specification{
         //'"a" < "b"'                                         |   BOOLEAN        |    true
     }
 
+    def "Should evaluate <= operation correctly"() {
+        setup:
+        DataValue actualResult = expressionRuntime.withExpressionContent(input).evaluate()
+
+        expect:
+        expectedType == actualResult.getType()
+        expectedValue == actualResult.value
+
+        where:
+        input                                               |   expectedType    | expectedValue
+        '1.0 <= 1.0'                                        |   BOOLEAN         |    true
+        '1.0 <= 2.0'                                        |   BOOLEAN         |    true
+        '0.0 <= 1.0'                                        |   BOOLEAN         |    true
+        '0 <= 0'                                            |   BOOLEAN         |    true
+        '-1 <= 0'                                           |   BOOLEAN         |    true
+        '0 < 1'                                             |   BOOLEAN         |    true
+        '9223372036854775806 < 9223372036854775807'         |   BOOLEAN         |    true
+        '9223372036854775807 < 9223372036854775806'         |   BOOLEAN         |    false
+        '9.99999999999999999998 < 9.99999999999999999999'   |   BOOLEAN         |    true
+        '9.99999999999999999999 < 9.99999999999999999998'   |   BOOLEAN         |    false
+    }
+
     def "Should evaluate > operation correctly"() {
         setup:
         DataValue actualResult = expressionRuntime.withExpressionContent(input).evaluate()
@@ -110,10 +132,24 @@ class EqualitySpecification extends Specification{
         '9223372036854775807 > 9223372036854775806'         |   BOOLEAN         |    true
         '9.99999999999999999998 > 9.99999999999999999999'   |   BOOLEAN         |    false
         '9.99999999999999999999 > 9.99999999999999999998'   |   BOOLEAN         |    true
+    }
 
-        // currently returns false if not a number
-        //'"A" < "B"'                                         |   BOOLEAN        |    true
-        //'"a" < "b"'                                         |   BOOLEAN        |    true
+    def "Should evaluate compound equality expression correctly"() {
+        setup:
+        DataValue actualResult = expressionRuntime.withExpressionContent(input).evaluate()
+
+        expect:
+        expectedType == actualResult.getType()
+        expectedValue == actualResult.value
+
+        where:
+        input                                               |   expectedType    | expectedValue
+        '(2.0 + 1.0) == (1.0 + 2.0)'                        |   BOOLEAN         |    true
+        '(2.0 + 1.0) == (1.0 + 2.0)'                        |   BOOLEAN         |    true
+        '(2.0 + 1.0) != (0.0 + -1.0)'                       |   BOOLEAN         |    true
+        '(2.0 + 1.0) > (0.0 + -1.0)'                        |   BOOLEAN         |    true
+        '(2.0 + 1.0) < (0.0 + 5.0)'                         |   BOOLEAN         |    true
+        '(2.0 + 1.0) < (0.0 + 5.0)'                         |   BOOLEAN         |    true
     }
 
 }
