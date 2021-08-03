@@ -19,6 +19,7 @@ public class ExpressionRuntime {
 
   private static Map<String, Expression> CACHE = new ConcurrentHashMap<>();
   private String expressionContent;
+  private Expression expression;
   private Map<String, JsonNode> data = new HashMap<>();
   private RuntimeOptions options = new RuntimeOptions();
   private ConfigManager configManager = new ConfigManager() {};
@@ -31,6 +32,11 @@ public class ExpressionRuntime {
 
   public ExpressionRuntime withExpressionContent(final String expressionContent) {
     this.expressionContent = expressionContent;
+    return this;
+  }
+
+  public ExpressionRuntime withExpression(final Expression expression) {
+    this.expression = expression;
     return this;
   }
 
@@ -50,8 +56,9 @@ public class ExpressionRuntime {
   }
 
   public DataValue evaluate() throws IOException {
-
-    Expression expression = getExpression();
+    if(expression == null)  {
+      expression = getExpression();
+    }
     Objects.requireNonNull(expression, "No expression found");
     return newExpressionEvaluator()
         .withInputs(

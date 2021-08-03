@@ -114,7 +114,7 @@ public class ExpressionEvaluator extends ExpressionSwitch<DataValue> {
   }
 
   public DataValue caseVariable(Variable object) {
-    return null;
+    return doSwitch(object.getSchemaVariable());
   }
 
   public DataValue caseKey(Key object) {

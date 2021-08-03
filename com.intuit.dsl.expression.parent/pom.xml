@@ -1,10 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.intuit.dsl.expression</groupId>
-	<version>1.0.0-SNAPSHOT</version>
 	<artifactId>com.intuit.dsl.expression.parent</artifactId>
 	<packaging>pom</packaging>
+	<parent>
+		<groupId>com.intuit.dsl</groupId>
+		<artifactId>common-xtext-expression-language</artifactId>
+		<version>1.0.2-SNAPSHOT</version>
+	</parent>
 
 	<properties>
 		<xtextVersion>2.25.0</xtextVersion>
@@ -15,10 +18,10 @@
 		<!-- Tycho settings -->
 		<tycho-version>1.7.0</tycho-version>
 		<!-- Define overridable properties for tycho-surefire-plugin -->
-		<platformSystemProperties></platformSystemProperties>
-		<moduleProperties></moduleProperties>
-		<systemProperties></systemProperties>
-		<additionalTestArguments></additionalTestArguments>
+		<platformSystemProperties />
+		<moduleProperties />
+		<systemProperties />
+		<additionalTestArguments />
 	</properties>
 	<modules>
 		<module>com.intuit.dsl.expression</module>
@@ -43,6 +46,22 @@
 	</dependencyManagement>
 	<build>
 		<plugins>
+		      <plugin>
+   				 <groupId>org.apache.maven.plugins</groupId>
+   				 <artifactId>maven-javadoc-plugin</artifactId>
+  			  	 <version>3.0.0-M1</version>
+ 				 <configuration>
+        			<skip>true</skip>
+    			 </configuration>
+			  </plugin>
+			  <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-packaging-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <strictVersions>false</strictVersions>
+                </configuration>
+            </plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
@@ -85,8 +104,8 @@
 								<id>org.eclipse.xtext.logging</id>
 								<versionRange>1.2.15</versionRange>
 							</requirement>
-							<!-- to get the org.eclipse.osgi.compatibility.state plugin if the target 
-								platform is Luna or later. (backward compatible with kepler and previous 
+							<!-- to get the org.eclipse.osgi.compatibility.state plugin if the 
+								target platform is Luna or later. (backward compatible with kepler and previous 
 								versions) see https://bugs.eclipse.org/bugs/show_bug.cgi?id=492149 -->
 							<requirement>
 								<type>eclipse-feature</type>
@@ -160,7 +179,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -179,7 +198,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -197,11 +216,11 @@
 											<goal>build-qualifier</goal>
 											<goal>build-qualifier-aggregator</goal>
 											<goal>validate-id</goal>
-											<goal>validate-version</goal>
-										</goals>
+<!-- 											<goal>validate-version</goal>
+ -->										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -209,10 +228,7 @@
 					</configuration>
 				</plugin>
 				<plugin>
-					<!-- 
-						Can be removed after first generator execution
-						https://bugs.eclipse.org/bugs/show_bug.cgi?id=480097
-					-->
+					<!-- Can be removed after first generator execution https://bugs.eclipse.org/bugs/show_bug.cgi?id=480097 -->
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-compiler-plugin</artifactId>
 					<version>${tycho-version}</version>
@@ -221,10 +237,9 @@
 						<useProjectSettings>false</useProjectSettings>
 					</configuration>
 				</plugin>
-				<!-- to skip running (and compiling) tests use commandline flag: -Dmaven.test.skip
-					To skip tests, but still compile them, use: -DskipTests
-					To allow all tests in a pom to pass/fail, use commandline flag: -fae (fail
-					at end) -->
+				<!-- to skip running (and compiling) tests use commandline flag: -Dmaven.test.skip 
+					To skip tests, but still compile them, use: -DskipTests To allow all tests 
+					in a pom to pass/fail, use commandline flag: -fae (fail at end) -->
 				<plugin>
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-surefire-plugin</artifactId>

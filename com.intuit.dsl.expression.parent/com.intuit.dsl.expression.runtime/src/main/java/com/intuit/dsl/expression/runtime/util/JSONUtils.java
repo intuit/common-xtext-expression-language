@@ -31,7 +31,7 @@ public class JSONUtils {
 
   /**
    * This function recursively iterates through the input JsonNode and returns a matching pattern dictated via the
-   * Iterator node = { a: { b: 123 } }, recurse(b, node) => keep finding till "b" is found and return value of "b" i.e.
+   * Iterator node = { a: { b: 123 } }, recurse(b, node) meaning keep finding till "b" is found and return value of "b" i.e.
    * 123
    *
    * @param iterator String Iterator that acts as a matching filter
@@ -67,7 +67,7 @@ public class JSONUtils {
    * creates an empty node and then returns the newly created node.
    *
    * @param inputNode The JsonNode object
-   * @param path The top-level field inside the inputNode JsonNode that you need the value for
+   * @param field The top-level field inside the inputNode JsonNode that you need the value for
    * @return ObjectNode The value of the field inside the JSONNode Object
    */
   public static JsonNode getOrCreate(String field, JsonNode inputNode) {
