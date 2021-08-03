@@ -22,7 +22,7 @@ public class EqualsEvaluator implements Evaluator<Equals> {
 
     String op = equals.getOp();
     if (StringUtils.equals(op, "!=")) {
-      return new DataValue(left != right, DataValue.Type.BOOLEAN);
+      return new DataValue(!Objects.equals(left, right), DataValue.Type.BOOLEAN);
     } else if (StringUtils.equals(op, "=~")) {
       return new DataValue(left.fuzzyEquals(right), DataValue.Type.BOOLEAN);
     } else if (StringUtils.equals(op, "!~")) {
