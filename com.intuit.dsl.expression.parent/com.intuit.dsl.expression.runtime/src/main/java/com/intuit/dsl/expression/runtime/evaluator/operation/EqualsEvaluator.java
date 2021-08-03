@@ -4,6 +4,7 @@ import com.intuit.dsl.expression.Equals;
 import com.intuit.dsl.expression.runtime.evaluator.Evaluator;
 import com.intuit.dsl.expression.runtime.evaluator.ExpressionEvaluator;
 import com.intuit.dsl.expression.runtime.model.DataValue;
+import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 public class EqualsEvaluator implements Evaluator<Equals> {
@@ -27,7 +28,7 @@ public class EqualsEvaluator implements Evaluator<Equals> {
     } else if (StringUtils.equals(op, "!~")) {
       return new DataValue(!left.fuzzyEquals(right), DataValue.Type.BOOLEAN);
     } else {
-      return new DataValue(left == right, DataValue.Type.BOOLEAN);
+      return new DataValue(Objects.equals(left, right), DataValue.Type.BOOLEAN);
     }
   }
 }
