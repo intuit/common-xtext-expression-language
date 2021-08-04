@@ -1,11 +1,11 @@
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.google.common.collect.ImmutableList
 import com.google.common.collect.ImmutableMap
 import com.intuit.dsl.expression.runtime.ExpressionRuntime
 import com.intuit.dsl.expression.runtime.model.DataValue
 import spock.lang.Specification
+import util.TestUtils
 
 import static com.intuit.dsl.expression.runtime.model.DataValue.Type.ARRAY
 
@@ -28,9 +28,9 @@ class FilterSpecification extends Specification {
                         "booleanAttribute", false
                 ),
         ))
-        ObjectMapper mapper = new ObjectMapper()
-        inputData.put("dataSet1", mapper.convertValue(dataSet1, JsonNode.class))
-        inputData.put("dataSet2", mapper.convertValue(dataSet2, JsonNode.class))
+
+        inputData.put("dataSet1", TestUtils.MAPPER.convertValue(dataSet1, JsonNode.class))
+        inputData.put("dataSet2", TestUtils.MAPPER.convertValue(dataSet2, JsonNode.class))
     }
 
     def "Should filter with == expression correctly"() {

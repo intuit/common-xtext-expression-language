@@ -1,9 +1,9 @@
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.common.collect.ImmutableMap
 import com.intuit.dsl.expression.runtime.ExpressionRuntime
 import com.intuit.dsl.expression.runtime.model.DataValue
 import spock.lang.Specification
+import util.TestUtils
 
 import static com.intuit.dsl.expression.runtime.model.DataValue.Type.STRING
 
@@ -20,8 +20,8 @@ class ExtractSpecification extends Specification {
                 "numberStringAttribute", "1234",
                 "booleanAttribute", true
         ))
-        ObjectMapper mapper = new ObjectMapper()
-        inputData.put("dataSet", mapper.convertValue(dataSet, JsonNode.class))
+
+        inputData.put("dataSet", TestUtils.MAPPER.convertValue(dataSet, JsonNode.class))
     }
 
     def "Should extract correct value for a given range"() {

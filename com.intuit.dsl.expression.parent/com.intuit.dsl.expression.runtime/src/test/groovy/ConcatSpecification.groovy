@@ -1,9 +1,9 @@
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.common.collect.ImmutableMap
 import com.intuit.dsl.expression.runtime.ExpressionRuntime
 import com.intuit.dsl.expression.runtime.model.DataValue
 import spock.lang.Specification
+import util.TestUtils
 
 import static com.intuit.dsl.expression.runtime.model.DataValue.Type.STRING
 
@@ -20,8 +20,7 @@ class ConcatSpecification extends Specification {
                 "aNumber", "123",
                 "aBoolean", true
         ))
-        ObjectMapper mapper = new ObjectMapper()
-        inputData.put("data", mapper.convertValue(dataSet, JsonNode.class))
+        inputData.put("data", TestUtils.MAPPER.convertValue(dataSet, JsonNode.class))
     }
 
     def "Should concat string literals correctly"() {
