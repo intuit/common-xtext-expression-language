@@ -24,41 +24,7 @@ class ExtractSpecification extends Specification {
         inputData.put("dataSet", mapper.convertValue(dataSet, JsonNode.class))
     }
 
-    def "With range 0.. should extract from index 0 onwards"() {
-        setup:
-        DataValue actualResult = expressionRuntime
-                .withExpressionContent(input)
-                .withData(inputData)
-                .evaluate()
-
-
-        expect:
-        expectedType == actualResult.getType()
-        expectedValue == actualResult.getValue()
-
-        where:
-        input                             | expectedType | expectedValue
-        ''' extract("0123456789",0..) ''' | STRING       | "0123456789"
-    }
-
-    def "With range 2.. should extract from index 2 onwards"() {
-        setup:
-        DataValue actualResult = expressionRuntime
-                .withExpressionContent(input)
-                .withData(inputData)
-                .evaluate()
-
-
-        expect:
-        expectedType == actualResult.getType()
-        expectedValue == actualResult.getValue()
-
-        where:
-        input                             | expectedType | expectedValue
-        ''' extract("0123456789",2..) ''' | STRING       | "23456789"
-    }
-
-    def "With range 2.. should extract from index 2 onwards from a variable"() {
+    def "Should extract correct value for a given range"() {
         setup:
         DataValue actualResult = expressionRuntime
                 .withExpressionContent(input)
@@ -72,6 +38,9 @@ class ExtractSpecification extends Specification {
 
         where:
         input                                                         | expectedType | expectedValue
+        ''' extract("0123456789",0..) '''                             | STRING       | "0123456789"
+        ''' extract("0123456789",2..) '''                             | STRING       | "23456789"
         ''' extract(dataSet.someObject.numberStringAttribute,2..) ''' | STRING       | "34"
     }
+
 }
