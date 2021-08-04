@@ -15,7 +15,6 @@ import static com.intuit.dsl.expression.runtime.model.DataValue.Type.ARRAY
 
 class ComplexExpressionTest extends Specification {
 
-
     def expressionRuntime = ExpressionRuntime.newExpressionRuntime()
 
     Map<String, JsonNode> inputData = new HashMap<String, JsonNode>()
@@ -23,7 +22,7 @@ class ComplexExpressionTest extends Specification {
     def setup() {
 
         ZoneId defaultZone = ZoneId.systemDefault()
-        long tenDaysFromNow = LocalDateTime.now().atZone(defaultZone).plusDays(10).toEpochSecond()
+        long tenDaysFromNow = LocalDateTime.now().atZone(defaultZone).plusDays(10).toInstant().toEpochMilli()
 
         // dataSet1
         Map<String, Object> dataSet1 = new HashMap<>()
@@ -61,18 +60,13 @@ class ComplexExpressionTest extends Specification {
                     filter(dataSet2.someList,
                         booleanAttribute == true &&
                         (
-                            (stringAttribute1 == "SomeStringValue1" && contains(stringAttribute2,"SomeStringValue2") )
+                            (stringAttribute1 == "SomeStringValue1" && contains(stringAttribute2,"SomeStringValue2") && dateFormat("MM/dd/yyyy","ms",currentDate()) < tenDaysFromNow)
                             || (stringAttribute1 == "123" && contains(stringAttribute2,"xyz"))
                         )
                     )
                     ,contains(someArray, concat("abc",extract(::dataSet1.aNumberString,2..),"789") )
                 )
             '''
-
-        // Note:  :: means access from root of input Data
-
-        // TODO add as part of complex expression
-        //&& dateFormat("MM/dd/yyyy","ms",currentDate()) < tenDaysFromNow
 
         when:
         DataValue actualResult = expressionRuntime
