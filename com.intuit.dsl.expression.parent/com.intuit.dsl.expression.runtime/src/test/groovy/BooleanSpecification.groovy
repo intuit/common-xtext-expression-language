@@ -1,10 +1,8 @@
 import com.intuit.dsl.expression.runtime.ExpressionRuntime
 import com.intuit.dsl.expression.runtime.model.DataValue
-import com.intuit.dsl.expression.runtime.model.NumberValue
 import spock.lang.Specification
 
 import static com.intuit.dsl.expression.runtime.model.DataValue.Type.BOOLEAN
-import static com.intuit.dsl.expression.runtime.model.DataValue.Type.NUMBER
 
 class BooleanSpecification extends Specification {
 
@@ -56,5 +54,37 @@ class BooleanSpecification extends Specification {
 //        'false OR 0'                |    BOOLEAN         |     true
 //        '0 OR 0'                    |    BOOLEAN         |     false
 
+    }
+
+    def "Should perform compound boolean operations(&& and ||) correctly"() {
+        setup:
+        DataValue value = expressionRuntime.withExpressionContent(input).evaluate()
+        DataValue.Type outputType = value.getType()
+        def actualValue = value.getValue()
+
+        expect:
+        outputType == expectedType
+        actualValue == expectedValue
+
+        where:
+        input                                       |   expectedType     | expectedValue
+        '(false || false) || false'                 |    BOOLEAN         |     false
+        '(false || true) || true'                   |    BOOLEAN         |     true
+        'false || (false || false)'                 |    BOOLEAN         |     false
+        'true  || (false || true)'                  |    BOOLEAN         |     true
+        '(false || false)  || (false || false)'     |    BOOLEAN         |     false
+        '(false || true)   || (false || true)'      |    BOOLEAN         |     true
+        '((1+1) == 2) || (2+2 == 4)'                |    BOOLEAN         |     true
+        '((1+1) == 3) || (2+2 == 4)'                |    BOOLEAN         |     true
+        '((1+1) == 2) || (2+2 == 5)'                |    BOOLEAN         |     true
+        '((1+1) == 3) || (2+2 == 5)'                |    BOOLEAN         |     false
+        '(false && false) && false'                 |    BOOLEAN         |     false
+        'false && (false && false)'                 |    BOOLEAN         |     false
+        'true && (true && true)'                    |    BOOLEAN         |     true
+        '(false && false)  && (false && false)'     |    BOOLEAN         |     false
+        '(true && true)   && (true && true)'        |    BOOLEAN         |     true
+        '((1+1) == 2) && (2+2 == 4)'                |    BOOLEAN         |     true
+        '((1+1) == 3) && (2+2 == 4)'                |    BOOLEAN         |     false
+        '((1+1) == 2) && (2+2 == 5)'                |    BOOLEAN         |     false
     }
 }

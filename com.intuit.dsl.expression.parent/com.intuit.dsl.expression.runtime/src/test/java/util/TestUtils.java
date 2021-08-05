@@ -9,7 +9,7 @@ import com.intuit.dsl.expression.runtime.util.JSONUtils;
 
 public class TestUtils {
 
-  private static final ObjectMapper MAPPER = new ObjectMapper();
+  public static final ObjectMapper MAPPER = new ObjectMapper();
 
   public static ObjectMapper mapper() {
     return MAPPER;
