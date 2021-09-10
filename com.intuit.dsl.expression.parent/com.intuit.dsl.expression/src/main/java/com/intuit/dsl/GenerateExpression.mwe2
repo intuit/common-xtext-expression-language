@@ -1,4 +1,4 @@
-module com.intuit.dsl.expression.GenerateExpression
+module com.intuit.dsl.GenerateExpression
 
 import org.eclipse.xtext.xtext.generator.*
 import org.eclipse.xtext.xtext.generator.model.project.*
@@ -22,7 +22,7 @@ Workflow {
 			}
 		}
 		language = StandardLanguage {
-			name = "com.intuit.dsl.expression.Expression"
+			name = "com.intuit.dsl.Expression"
 			fileExtensions = "expr"
 
 			serializer = {
