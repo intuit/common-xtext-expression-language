@@ -39,10 +39,11 @@ favorite editor.
 / [Windows](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2019-03/R/eclipse-inst-win64.exe)
 / [Linux](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2019-03/R/eclipse-inst-linux64.tar.gz). 
 2. Install Xtext SDK in Eclipse:  
-   a. In Eclipse, click Help --> Install New Software  
-   b. In Available Software, click Add to add a repository with location: http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/  
-   c. Select the repository just added in 'Work with' dropdown
-   e. Select and install Xtext Complete SDK 
+   a. In Eclipse, click Help --> Install New Software.    
+   b. In Available Software, click Add to add a repository with the following location 
+   http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/    
+   c. Select the repository just added in 'Work with' dropdown.    
+   d. Select and install Xtext Complete SDK. 
 3. Restart Eclipse.
 4. Edit the [grammar](https://github.com/intuit/common-xtext-expression-language/blob/master/com.intuit.dsl.expression.parent/com.intuit.dsl.expression/src/com/intuit/dsl/Expression.xtext)
 5. Right click on [GenerateExpression.mwe2](https://github.com/intuit/common-xtext-expression-language/blob/master/com.intuit.dsl.expression.parent/com.intuit.dsl.expression/src/com/intuit/dsl/GenerateExpression.mwe2). 
