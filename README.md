@@ -38,15 +38,11 @@ favorite editor.
 1. Download and install Eclipse [MAC](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2019-03/R/eclipse-inst-mac64.dmg) 
 / [Windows](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2019-03/R/eclipse-inst-win64.exe)
 / [Linux](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2019-03/R/eclipse-inst-linux64.tar.gz). 
-    Also, install [lombok](https://projectlombok.org/download) for Eclipse
 2. Install Xtext SDK in Eclipse:  
    a. In Eclipse, click Help --> Install New Software  
-      <img alt="Install New Software" src="https://documents/images/installNewSoftware.png" width="300">  <br />
    b. In Available Software, click Add to add a repository with location: http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/  
-      <img alt="Add Repository" src="https://documents/images/addRepo.png" width="500">  <br />
    c. Select the repository just added in 'Work with' dropdown
    e. Select and install Xtext Complete SDK 
-      <img alt="Xtext Version" src="https://documents/images/xtextVersion.png" width="700">  <br/>
 3. Restart Eclipse.
 4. Edit the [grammar](https://github.com/intuit/common-xtext-expression-language/blob/master/com.intuit.dsl.expression.parent/com.intuit.dsl.expression/src/com/intuit/dsl/Expression.xtext)
 5. Right click on [GenerateExpression.mwe2](https://github.com/intuit/common-xtext-expression-language/blob/master/com.intuit.dsl.expression.parent/com.intuit.dsl.expression/src/com/intuit/dsl/GenerateExpression.mwe2). 
