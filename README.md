@@ -35,7 +35,7 @@ favorite editor.
 
 ### Making changes to Expression Grammar
 
-1. Download and install Eclipse [MAC](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2019-03/R/eclipse-inst-mac64.dmg) 
+1. Download and install Eclipse [MAC](https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2020-06/R/eclipse-jee-2020-06-R-macosx-cocoa-x86_64.dmg) 
 / [Windows](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2019-03/R/eclipse-inst-win64.exe)
 / [Linux](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2019-03/R/eclipse-inst-linux64.tar.gz). 
 2. Install Xtext SDK in Eclipse:  
