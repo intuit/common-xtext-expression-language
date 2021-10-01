@@ -1,0 +1,70 @@
+site_name: Common Xtext Expression Language Documentation
+site_description: Common Xtext Expression Language Documentation
+docs_dir: docs
+theme:
+  name: material
+#  logo:
+#    icon: home
+  font:
+    text: Work Sans
+    code: Menlo
+  favicon: img/graphql.ico
+extra_css: ["css/css-override.css"]
+repo_url: "https://github.com/intuit/common-xtext-expression-language.git"
+repo_name: 'common-xtext-expression-language'
+copyright: 'Copyright &copy; 2021 Intuit'
+
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite:
+      guess_lang: true
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+nav:
+  - Home: index.md
+  - Expressions:
+      - Arithmetic: expressions/Arithmetic.md
+      - Boolean: expressions/Boolean.md
+      - Conditional: expressions/Conditional.md
+  - Functions:
+      - Join: functions/join.md
+      - Length: functions/length.md
+      - Filter: functions/filter.md
+      - Concat: functions/concat.md
+      - DateFormat: functions/dateFormat.md
+      - Json: functions/json.md
+      - Split: functions/split.md
+      - Contains: functions/contains.md
+      - DayDifference: functions/dayDifference.md
+      - CurrentDate: functions/currentDate.md
+      - FindFirst: functions/findFirst.md
+      - PickFirst: functions/pickFirst.md
+      - Remove: functions/remove.md
+      - Extract: functions/extract.md
+      - Sort: functions/sort.md
+      - Shuffle: functions/shuffle.md
+      - Dedup: functions/dedup.md
+      - Map: functions/map.md
+
+
