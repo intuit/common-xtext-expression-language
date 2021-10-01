@@ -1,0 +1,58 @@
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.ArrayNode
+import com.google.common.collect.ImmutableList
+import com.google.common.collect.ImmutableMap
+import com.intuit.dsl.expression.runtime.ExpressionRuntime
+import com.intuit.dsl.expression.runtime.model.DataValue
+import spock.lang.Specification
+import util.TestUtils
+
+import static com.intuit.dsl.expression.runtime.model.DataValue.Type.ARRAY
+
+class RemoveSpecification extends Specification {
+
+    def expressionRuntime = ExpressionRuntime.newExpressionRuntime()
+
+    Map<String, JsonNode> inputData = new HashMap<String, JsonNode>()
+
+    def setup() {
+        Map<String, Object> dataSet1 = new HashMap<>()
+        Map<String, Object> dataSet2 = new HashMap<>()
+        dataSet2.put("someList", ImmutableList.of(
+                ImmutableMap.of(
+                        "stringAttribute", "SomeStringValue1",
+                        "booleanAttribute", true
+                ),
+                ImmutableMap.of(
+                        "stringAttribute", "SomeStringValue2",
+                        "booleanAttribute", false
+                ),
+        ))
+
+        inputData.put("dataSet1", TestUtils.MAPPER.convertValue(dataSet1, JsonNode.class))
+        inputData.put("dataSet2", TestUtils.MAPPER.convertValue(dataSet2, JsonNode.class))
+    }
+
+    def "Should filter with == expression correctly"() {
+        setup:
+        DataValue actualResult = expressionRuntime
+                .withExpressionContent(input)
+                .withData(inputData)
+                .evaluate()
+        ArrayNode arrayNode = actualResult.value
+
+        expect:
+        expectedType == actualResult.getType()
+        expectedSize == arrayNode.size()
+
+        where:
+        input                                                                       | expectedType | expectedSize
+        ''' remove(dataSet2.someList, booleanAttribute == true) '''                 | ARRAY        | 1
+        ''' remove(dataSet2.someList, booleanAttribute == false) '''                | ARRAY        | 1
+        ''' remove(dataSet2.someList, stringAttribute == "SomeStringValue1") '''    | ARRAY        | 1
+        ''' remove(dataSet2.someList, stringAttribute == "SomeStringValue2") '''    | ARRAY        | 1
+        ''' remove(dataSet2.someList, stringAttribute == "Not Present in List") ''' | ARRAY        | 2
+        ''' remove(dataSet2.someList, stringAttribute != "Not Present in List") ''' | ARRAY        | 0
+    }
+
+}
