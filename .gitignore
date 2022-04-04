@@ -6,6 +6,7 @@ target
 generated
 generated-sources
 src-gen
+xtext-gen
 xtend-gen
 *.xml_gen
 .metadata
