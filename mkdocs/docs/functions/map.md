@@ -80,10 +80,6 @@ Schema outputSchema {
 		string name
 		string value
 	}
-	mapOperator [
-		string name
-		string amount
-	]
 	mapArrayWithRange [
 		string name
 		string desc
@@ -110,15 +106,56 @@ Mapping outPutMapping input inputValue as inputValue output outputSchema {
 		name = a
 		value = b
 	})
-	
-	outputSchema.mapOperator = inputValue.array->(d==100){
-		name = a
-		amount = d
-	}
 }
 
 Flow mapFlow {
 	Start outPutMapping{}
+}
+
+
+Output:
+{
+    "mapArray":
+    [
+        {
+            "name": "a",
+            "desc": "a",
+            "amount": 100
+        },
+        {
+            "name": "a",
+            "desc": "b",
+            "amount": 10
+        },
+        {
+            "name": "a",
+            "desc": "b",
+            "amount": 1
+        },
+        {
+            "name": "a",
+            "desc": "b",
+            "amount": 0
+        }
+    ],
+    "mapObject":
+    {
+        "name": "a",
+        "value": "b"
+    }
+    "mapArrayWithRange":
+    [
+        {
+            "name": "a",
+            "desc": "a",
+            "amount": 100
+        },
+        {
+            "name": "a",
+            "desc": "b",
+            "amount": 10
+        }
+    ]
 }
 
 ```
